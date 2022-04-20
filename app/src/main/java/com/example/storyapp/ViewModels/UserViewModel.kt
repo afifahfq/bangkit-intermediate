@@ -15,8 +15,9 @@ import retrofit2.Response
 
 class UserViewModel : ViewModel(){
     val userViewModelStatus = MutableLiveData<Boolean>()
-    val registerStatus = MutableLiveData<Boolean>()
+    val loginStatus = MutableLiveData<Boolean>()
     var mUser = MutableLiveData<User>()
+//    var mMessage = MutableLiveData<String>()
 
     fun login(email: String, password: String) {
         userViewModelStatus.postValue(true)
@@ -27,7 +28,8 @@ class UserViewModel : ViewModel(){
                 response: Response<LoginResponse>
             ) {
                 val responseBody = response.body()
-                if (responseBody != null) {
+                val error = responseBody?.error
+                if (error == false) {
                     val result = responseBody.loginResult
                     var user = User(
                         result?.userId,
@@ -35,8 +37,13 @@ class UserViewModel : ViewModel(){
                         result?.token
                     )
                     mUser.postValue(user)
-                    userViewModelStatus.postValue(false)
+                    loginStatus.postValue(true)
                 }
+                else {
+                    loginStatus.postValue(false)
+//                    mMessage.postValue(message!!)
+                }
+                userViewModelStatus.postValue(false)
             }
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 Log.e("UserViewModel", "onFailure: ${t.message}")
@@ -53,16 +60,15 @@ class UserViewModel : ViewModel(){
                 response: Response<BaseResponse>
             ) {
                 val responseBody = response.body()
-                if (responseBody != null) {
-                    val result = responseBody.message
+                val result = responseBody?.error
+                if (result == false) {
+                    loginStatus.postValue(true)
+//                        login(email, password)
+                }
+                else {
+                    loginStatus.postValue(false)
+//                    mMessage.postValue(message!!)
                     userViewModelStatus.postValue(false)
-                    if (result == "User Created") {
-                        registerStatus.postValue(true)
-                        login(email, password)
-                    }
-                    else {
-                        registerStatus.postValue(false)
-                    }
                 }
             }
             override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
@@ -75,7 +81,15 @@ class UserViewModel : ViewModel(){
         return mUser
     }
 
-    fun getStatus(): MutableLiveData<Boolean> {
+    fun getLoading(): MutableLiveData<Boolean> {
         return userViewModelStatus
     }
+
+    fun getStatus(): MutableLiveData<Boolean> {
+        return loginStatus
+    }
+
+//    fun getMessage(): MutableLiveData<String> {
+//        return mMessage
+//    }
 }

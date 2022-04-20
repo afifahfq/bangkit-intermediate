@@ -1,15 +1,18 @@
 package com.example.storyapp.Views
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.storyapp.MainActivity
 import com.example.storyapp.Models.User
 import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.R
@@ -74,16 +77,22 @@ class LoginActivity : AppCompatActivity() {
         }
         mLiveDataUser.getUser()?.observe(this, userObserver)
 
-        val statusObserver = Observer<Boolean> { aStatus ->
-            showLoading(aStatus)
+        val loadingObserver = Observer<Boolean> { aLoading ->
+            showLoading(aLoading)
         }
-        mLiveDataUser.getStatus().observe(this, statusObserver)
+        mLiveDataUser.getLoading().observe(this, loadingObserver)
+
+        val loginObserver = Observer<Boolean> { aStatus ->
+            checkLoginStatus(aStatus)
+        }
+        mLiveDataUser.getStatus().observe(this, loginObserver)
     }
 
     private fun saveUser(user: User) {
         val userPreference = UserPreference(this)
         userPreference.setUser(user)
-        Toast.makeText(this, userPreference.getUser().name, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, userPreference.getUser().name, Toast.LENGTH_SHORT).show()
+        Log.i("CEKPREFERENCE", userPreference.getUser().name!!)
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -91,6 +100,15 @@ class LoginActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun checkLoginStatus(aStatus: Boolean) {
+        if (aStatus) {
+            val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(moveIntent)
+        } else {
+            Toast.makeText(this@LoginActivity, "Login gagal", Toast.LENGTH_SHORT).show()
         }
     }
 
