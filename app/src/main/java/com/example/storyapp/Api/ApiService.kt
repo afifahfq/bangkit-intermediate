@@ -16,10 +16,11 @@ interface ApiService {
         @Field("password") password: String
     ): Call<BaseResponse>
 
-    @POST("stories")
+    @FormUrlEncoded
+    @POST("login")
     fun login(
         @Field("email") email: String,
-        @Part("password") password: String
+        @Field("password") password: String
     ): Call<LoginResponse>
 
     @Headers("Authorization: token <Personal Access Token>")
@@ -33,7 +34,8 @@ interface ApiService {
     ): Call<BaseResponse>
 
     // apakah bisa upload file tanpa multipart
-    @POST("stories")
+//    @Multipart
+    @POST("stories/guest")
     fun addNewStoryGuest(
         @Field("name") name: String,
         @Part("photo") photo: MultipartBody.Part,
