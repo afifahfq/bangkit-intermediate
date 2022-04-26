@@ -35,11 +35,11 @@ class ListStoryAdapter(private val listStories: ArrayList<Story>): RecyclerView.
         val (id, name, description, photoUrl, createdAt, lat, lon) = listStories[position]
         Glide.with(holder.itemView.context)
             .load(photoUrl)
-            .circleCrop()
             .into(holder.imgPhoto);
 
         holder.tvUsername.text = name
-        holder.tvName.text = description
+//        holder.tvName.text = description
+        holder.tvName.text = "description         desc         desc         desc"
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listStories[holder.adapterPosition])
         }

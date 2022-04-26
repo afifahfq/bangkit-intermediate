@@ -115,6 +115,7 @@ class RegisterActivity : AppCompatActivity() {
         if (aStatus) {
             val moveIntent = Intent(this@RegisterActivity, MainActivity::class.java)
             startActivity(moveIntent)
+            finish()
         } else {
             Toast.makeText(this@RegisterActivity, "Register gagal", Toast.LENGTH_SHORT).show()
         }

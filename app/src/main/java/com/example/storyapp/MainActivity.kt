@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         mLiveDataList = ViewModelProvider(this)[StoryViewModel::class.java]
         subscribe()
-        mLiveDataList.getAllStories(userPreference.getToken(), null, null, 0)
+        mLiveDataList.getAllStories(userPreference.getToken(), null, 100, 0)
     }
 
     private fun subscribe() {
@@ -69,9 +69,9 @@ class MainActivity : AppCompatActivity() {
         listUserAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Story) {
 
-                val detailUserIntent = Intent(this@MainActivity, DetailStoryActivity::class.java)
-                detailUserIntent.putExtra(DetailStoryActivity.EXTRA_STORY, data)
-                startActivity(detailUserIntent)
+                val detailStoryIntent = Intent(this@MainActivity, DetailStoryActivity::class.java)
+                detailStoryIntent.putExtra(DetailStoryActivity.EXTRA_STORY, data)
+                startActivity(detailStoryIntent)
             }
         })
     }
@@ -116,6 +116,7 @@ class MainActivity : AppCompatActivity() {
 
             val i = Intent(this, LoginActivity::class.java)
             startActivity(i)
+            finish()
         }
         builder.setNegativeButton(
             "Cancel") { dialog, id ->

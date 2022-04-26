@@ -107,6 +107,7 @@ class LoginActivity : AppCompatActivity() {
         if (aStatus) {
             val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(moveIntent)
+            finish()
         } else {
             Toast.makeText(this@LoginActivity, "Login gagal", Toast.LENGTH_SHORT).show()
         }

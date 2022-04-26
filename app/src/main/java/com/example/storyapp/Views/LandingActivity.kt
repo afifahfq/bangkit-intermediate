@@ -47,6 +47,7 @@ class LandingActivity : AppCompatActivity(), View.OnClickListener {
         if (aStatus) {
             val moveIntent = Intent(this@LandingActivity, MainActivity::class.java)
             startActivity(moveIntent)
+            finish()
         }
     }
 
