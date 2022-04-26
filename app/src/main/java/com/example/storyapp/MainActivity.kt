@@ -1,5 +1,6 @@
 package com.example.storyapp
 
+import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,6 +22,7 @@ import com.example.storyapp.Models.User
 import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.ViewModels.StoryViewModel
 import com.example.storyapp.Views.DetailStoryActivity
+import com.example.storyapp.Views.LandingActivity
 import com.example.storyapp.Views.LoginActivity
 import com.example.storyapp.databinding.ActivityMainBinding
 
@@ -71,7 +74,8 @@ class MainActivity : AppCompatActivity() {
 
                 val detailStoryIntent = Intent(this@MainActivity, DetailStoryActivity::class.java)
                 detailStoryIntent.putExtra(DetailStoryActivity.EXTRA_STORY, data)
-                startActivity(detailStoryIntent)
+                startActivity(detailStoryIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity as Activity).toBundle())
+//                startActivity(detailStoryIntent, optionsCompat.toBundle())
             }
         })
     }
@@ -114,7 +118,7 @@ class MainActivity : AppCompatActivity() {
 
             Log.i("CEKPREFERENCE", userPreference.getUser().name!!)
 
-            val i = Intent(this, LoginActivity::class.java)
+            val i = Intent(this, LandingActivity::class.java)
             startActivity(i)
             finish()
         }

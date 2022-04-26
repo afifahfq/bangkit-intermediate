@@ -1,10 +1,12 @@
 package com.example.storyapp.Views
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.storyapp.MainActivity
@@ -46,7 +48,8 @@ class LandingActivity : AppCompatActivity(), View.OnClickListener {
     private fun checkLoginStatus(aStatus: Boolean) {
         if (aStatus) {
             val moveIntent = Intent(this@LandingActivity, MainActivity::class.java)
-            startActivity(moveIntent)
+//            startActivity(moveIntent)
+            startActivity(moveIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandingActivity as Activity).toBundle())
             finish()
         }
     }
@@ -55,15 +58,18 @@ class LandingActivity : AppCompatActivity(), View.OnClickListener {
         when (p0?.id) {
             R.id.goto_login -> {
                 val moveIntent = Intent(this@LandingActivity, LoginActivity::class.java)
-                startActivity(moveIntent)
+//                startActivity(moveIntent)
+                startActivity(moveIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandingActivity as Activity).toBundle())
             }
             R.id.goto_register -> {
                 val moveIntent = Intent(this@LandingActivity, RegisterActivity::class.java)
-                startActivity(moveIntent)
+//                startActivity(moveIntent)
+                startActivity(moveIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandingActivity as Activity).toBundle())
             }
             R.id.goto_guest -> {
                 val moveIntent = Intent(this@LandingActivity, MainActivity::class.java)
-                startActivity(moveIntent)
+//                startActivity(moveIntent)
+                startActivity(moveIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandingActivity as Activity).toBundle())
             }
         }
     }
