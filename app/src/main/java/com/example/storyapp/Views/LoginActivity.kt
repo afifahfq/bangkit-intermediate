@@ -73,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun subscribe() {
         val userObserver = Observer<User> { aUser ->
+//            Toast.makeText(this@LoginActivity, aUser.userId, Toast.LENGTH_SHORT).show()
             saveUser(aUser)
         }
         mLiveDataUser.getUser()?.observe(this, userObserver)
@@ -92,7 +93,6 @@ class LoginActivity : AppCompatActivity() {
         val userPreference = UserPreference(this)
         userPreference.setUser(user)
 //        Toast.makeText(this, userPreference.getUser().name, Toast.LENGTH_SHORT).show()
-        Log.i("CEKPREFERENCE", userPreference.getUser().name!!)
     }
 
     private fun showLoading(isLoading: Boolean) {

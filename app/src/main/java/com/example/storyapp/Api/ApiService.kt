@@ -23,11 +23,11 @@ interface ApiService {
         @Field("password") password: String
     ): Call<LoginResponse>
 
-    @Headers("Authorization: token <Personal Access Token>")
+    @Headers("Authorization: Bearer <Personal Access Token>")
     @Multipart
     @POST("stories")
     fun addNewStory(
-        @Field("name") name: String,
+        @Field("description") name: String,
         @Part("photo") photo: MultipartBody.Part,
         @Field("lat") lat: Float? = null,
         @Field("lon") lon: Float? = null
@@ -37,16 +37,18 @@ interface ApiService {
 //    @Multipart
     @POST("stories/guest")
     fun addNewStoryGuest(
-        @Field("name") name: String,
+        @Field("description") name: String,
         @Part("photo") photo: MultipartBody.Part,
         @Field("lat") lat: Float? = null,
         @Field("lon") lon: Float? = null
     ): Call<BaseResponse>
 
-    @Headers("Authorization: token <Personal Access Token>")
+//    @Headers("Authorization: Bearer <Personal Access Token>")
     @GET("stories")
     fun getAllStories(
-        @Field("page") page: Int? = null,
-        @Field("size") size: Int? = null
+        @Header("Authorization") auth: String?,
+        @Query("page") page: Int? = null,
+        @Query("size") size: Int? = null,
+        @Query("location") location: Int = 0
     ): Call<StoriesResponse>
 }

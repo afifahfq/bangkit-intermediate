@@ -13,7 +13,7 @@
         android:theme="@style/Theme.StoryApp">
         <activity
             android:name=".Views.LandingActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,12 +22,10 @@
         </activity>
         <activity
             android:name=".Views.RegisterActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Views.LoginActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="false" />

@@ -101,7 +101,6 @@ class RegisterActivity : AppCompatActivity() {
     private fun saveUser(user: User) {
         val userPreference = UserPreference(this)
         userPreference.setUser(user)
-        Toast.makeText(this, userPreference.getUser().name, Toast.LENGTH_SHORT).show()
     }
 
     private fun showLoading(isLoading: Boolean) {

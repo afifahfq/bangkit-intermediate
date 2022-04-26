@@ -25,4 +25,12 @@ internal class UserPreference(context: Context) {
         model.token = preferences.getString(TOKEN, "")
         return model
     }
+    fun clear() {
+        val editor = preferences.edit()
+        editor.clear()
+        editor.commit()
+    }
+    fun getToken(): String? {
+        return "Bearer " + preferences.getString(TOKEN, "")
+    }
 }
