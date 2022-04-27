@@ -4,6 +4,7 @@ import com.example.storyapp.Models.BaseResponse
 import com.example.storyapp.Models.LoginResponse
 import com.example.storyapp.Models.StoriesResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -23,24 +24,19 @@ interface ApiService {
         @Field("password") password: String
     ): Call<LoginResponse>
 
-    @Headers("Authorization: Bearer <Personal Access Token>")
     @Multipart
     @POST("stories")
     fun addNewStory(
-        @Field("description") name: String,
-        @Part("photo") photo: MultipartBody.Part,
-        @Field("lat") lat: Float? = null,
-        @Field("lon") lon: Float? = null
+        @Header("Authorization") auth: String?,
+        @Part("description") name: RequestBody,
+        @Part("photo") photo: MultipartBody.Part
     ): Call<BaseResponse>
 
-    // apakah bisa upload file tanpa multipart
-//    @Multipart
+    @Multipart
     @POST("stories/guest")
     fun addNewStoryGuest(
-        @Field("description") name: String,
-        @Part("photo") photo: MultipartBody.Part,
-        @Field("lat") lat: Float? = null,
-        @Field("lon") lon: Float? = null
+        @Part("description") name: RequestBody,
+        @Part("photo") photo: MultipartBody.Part
     ): Call<BaseResponse>
 
 //    @Headers("Authorization: Bearer <Personal Access Token>")

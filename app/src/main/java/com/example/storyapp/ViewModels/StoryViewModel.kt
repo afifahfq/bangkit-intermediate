@@ -12,6 +12,8 @@ import com.example.storyapp.Models.StoriesResponse
 import com.example.storyapp.Models.Story
 import com.example.storyapp.Preferences.UserPreference
 import okhttp3.MultipartBody
+import okhttp3.Request
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,9 +63,32 @@ class StoryViewModel : ViewModel(){
         })
     }
 
-    fun addNewStory(description: String, photo: MultipartBody.Part, lat: Float?, lon: Float?) {
+    fun addNewStory(auth: String?, description: RequestBody, photo: MultipartBody.Part) {
         mLoading.postValue(true)
-        val client = ApiConfig.getApiService().addNewStory(description, photo, lat, lon)
+        val client = ApiConfig.getApiService().addNewStory(auth, description, photo)
+        client.enqueue(object : Callback<BaseResponse> {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onResponse(
+                call: Call<BaseResponse>,
+                response: Response<BaseResponse>
+            ) {
+                val responseBody = response.body()
+                val error = responseBody?.error
+                if (error == false) {
+                    mLoading.postValue(false)
+                    mUpload.postValue(true)
+                }
+            }
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                Log.e("StoryViewModel", "onFailure: ${t.message}")
+                mUpload.postValue(false)
+            }
+        })
+    }
+
+    fun addNewStoryGuest(description: RequestBody, photo: MultipartBody.Part) {
+        mLoading.postValue(true)
+        val client = ApiConfig.getApiService().addNewStoryGuest(description, photo)
         client.enqueue(object : Callback<BaseResponse> {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(
@@ -89,6 +114,10 @@ class StoryViewModel : ViewModel(){
     }
 
     fun getStatus(): MutableLiveData<Boolean> {
+        return mUpload
+    }
+
+    fun getLoading(): MutableLiveData<Boolean> {
         return mLoading
     }
 

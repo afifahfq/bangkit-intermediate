@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         mLiveDataList = ViewModelProvider(this)[StoryViewModel::class.java]
         subscribe()
-        mLiveDataList.getAllStories(userPreference.getToken(), null, 100, 0)
+//        mLiveDataList.getAllStories(userPreference.getToken(), null, 100, 0)
 
         binding.fabAdd.setOnClickListener {
             val myIntent = Intent(this, CreateStoryActivity::class.java)
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         val loadingObserver = Observer<Boolean> { aStatus ->
             showLoading(aStatus)
         }
-        mLiveDataList.getStatus().observe(this, loadingObserver)
+        mLiveDataList.getLoading().observe(this, loadingObserver)
     }
 
     private fun showRecyclerList(aList: ArrayList<Story>) {

@@ -65,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable) {
             }
         })
+
         submitButton.setOnClickListener {
             //Toast.makeText(this@LoginActivity, passEditText.text, Toast.LENGTH_SHORT).show()
             mLiveDataUser.login(emailEditText.text.toString(), passEditText.text.toString())
@@ -111,10 +112,6 @@ class LoginActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this@LoginActivity, "Login gagal", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun setPreference() {
-
     }
 
     private fun setMyButtonEnable() {
