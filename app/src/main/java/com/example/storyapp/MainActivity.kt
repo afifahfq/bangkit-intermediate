@@ -21,6 +21,7 @@ import com.example.storyapp.Models.Story
 import com.example.storyapp.Models.User
 import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.ViewModels.StoryViewModel
+import com.example.storyapp.Views.CreateStoryActivity
 import com.example.storyapp.Views.DetailStoryActivity
 import com.example.storyapp.Views.LandingActivity
 import com.example.storyapp.Views.LoginActivity
@@ -45,6 +46,12 @@ class MainActivity : AppCompatActivity() {
         mLiveDataList = ViewModelProvider(this)[StoryViewModel::class.java]
         subscribe()
         mLiveDataList.getAllStories(userPreference.getToken(), null, 100, 0)
+
+        binding.fabAdd.setOnClickListener {
+            val myIntent = Intent(this, CreateStoryActivity::class.java)
+//            this.startActivity(myIntent)
+            this.startActivity(myIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity as Activity).toBundle())
+        }
     }
 
     private fun subscribe() {
