@@ -28,6 +28,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.storyapp.Helper.createCustomTempFile
 import com.example.storyapp.Helper.uriToFile
+import com.example.storyapp.MainActivity
 import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.R
 import com.example.storyapp.ViewModels.StoryViewModel
@@ -46,7 +47,6 @@ class CreateStoryActivity : AppCompatActivity() {
     private var imageFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.i("CEKSTATUSUPLOAD", "oncreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_story)
         binding = ActivityCreateStoryBinding.inflate(layoutInflater)
@@ -78,7 +78,6 @@ class CreateStoryActivity : AppCompatActivity() {
 
         mLiveDataStory = ViewModelProvider(this)[StoryViewModel::class.java]
         subscribe()
-        Log.i("CEKSTATUSUPLOAD", "finishoncreate")
     }
 
     private fun subscribe() {
@@ -94,10 +93,9 @@ class CreateStoryActivity : AppCompatActivity() {
     }
 
     private fun showResult(aStatus: Boolean) {
-        Log.i("CEKSTATUSUPLOAD", aStatus.toString())
         if (aStatus == true) {
             Toast.makeText(this, "Story uploaded!",Toast.LENGTH_SHORT).show()
-            val detailStoryIntent = Intent(this@CreateStoryActivity, SuccessActivity::class.java)
+            val detailStoryIntent = Intent(this@CreateStoryActivity, MainActivity::class.java)
             startActivity(detailStoryIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@CreateStoryActivity as Activity).toBundle())
             finish()
         } else {
@@ -184,22 +182,18 @@ class CreateStoryActivity : AppCompatActivity() {
             requestImageFile
         )
 
-        Log.i("CEKSTATUSUPLOAD", file.toString())
-
         val builder = androidx.appcompat.app.AlertDialog.Builder(view.context)
         builder.setTitle("Upload Story")
         builder.setMessage("How do you want to upload your story?")
 
         builder.setPositiveButton(
             "As Myself") { dialog, id ->
-            Toast.makeText(this, "As Myself",Toast.LENGTH_SHORT).show()
-            Log.i("CEKSTATUSUPLOAD", "asmyself")
+//            Toast.makeText(this, "As Myself",Toast.LENGTH_SHORT).show()
             mLiveDataStory.addNewStory(userPreference.getToken(), description, imageMultipart)
         }
         builder.setNegativeButton(
             "As Guest") { dialog, id ->
-            Toast.makeText(this, "As Guest",Toast.LENGTH_SHORT).show()
-            Log.i("CEKSTATUSUPLOAD", "asguest")
+//            Toast.makeText(this, "As Guest",Toast.LENGTH_SHORT).show()
             mLiveDataStory.addNewStoryGuest(description, imageMultipart)
         }
         builder.setNeutralButton(

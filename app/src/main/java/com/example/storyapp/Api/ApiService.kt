@@ -29,14 +29,14 @@ interface ApiService {
     fun addNewStory(
         @Header("Authorization") auth: String?,
         @Part("description") name: RequestBody,
-        @Part("photo") photo: MultipartBody.Part
+        @Part photo: MultipartBody.Part
     ): Call<BaseResponse>
 
     @Multipart
     @POST("stories/guest")
     fun addNewStoryGuest(
         @Part("description") name: RequestBody,
-        @Part("photo") photo: MultipartBody.Part
+        @Part photo: MultipartBody.Part
     ): Call<BaseResponse>
 
 //    @Headers("Authorization: Bearer <Personal Access Token>")

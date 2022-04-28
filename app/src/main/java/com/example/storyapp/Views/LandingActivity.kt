@@ -29,11 +29,9 @@ class LandingActivity : AppCompatActivity(), View.OnClickListener {
 
         val gotoLogin: Button = findViewById(R.id.goto_login)
         val gotoRegister: Button = findViewById(R.id.goto_register)
-        val gotoGuest: Button = findViewById(R.id.goto_guest)
 
         gotoLogin.setOnClickListener(this)
         gotoRegister.setOnClickListener(this)
-        gotoGuest.setOnClickListener(this)
 
         mLiveDataUser.loginStatus.postValue(false)
     }
@@ -63,11 +61,6 @@ class LandingActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.goto_register -> {
                 val moveIntent = Intent(this@LandingActivity, RegisterActivity::class.java)
-//                startActivity(moveIntent)
-                startActivity(moveIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandingActivity as Activity).toBundle())
-            }
-            R.id.goto_guest -> {
-                val moveIntent = Intent(this@LandingActivity, MainActivity::class.java)
 //                startActivity(moveIntent)
                 startActivity(moveIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandingActivity as Activity).toBundle())
             }

@@ -41,11 +41,11 @@ class MainActivity : AppCompatActivity() {
         rvStories.setHasFixedSize(true)
 
         val userPreference = UserPreference(this)
-        Log.i("CEKPREFERENCE", userPreference.getUser().name!!)
+//        Log.i("CEKPREFERENCE", userPreference.getUser().name!!)
 
         mLiveDataList = ViewModelProvider(this)[StoryViewModel::class.java]
         subscribe()
-//        mLiveDataList.getAllStories(userPreference.getToken(), null, 100, 0)
+        mLiveDataList.getAllStories(userPreference.getToken(), null, 100, 0)
 
         binding.fabAdd.setOnClickListener {
             val myIntent = Intent(this, CreateStoryActivity::class.java)

@@ -27,9 +27,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StoryApp">
         <activity
-            android:name=".Views.SuccessActivity"
-            android:exported="false" />
-        <activity
             android:name=".Views.CreateStoryActivity"
             android:exported="false" />
         <activity
