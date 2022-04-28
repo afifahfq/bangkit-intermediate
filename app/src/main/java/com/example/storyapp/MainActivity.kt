@@ -21,10 +21,7 @@ import com.example.storyapp.Models.Story
 import com.example.storyapp.Models.User
 import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.ViewModels.StoryViewModel
-import com.example.storyapp.Views.CreateStoryActivity
-import com.example.storyapp.Views.DetailStoryActivity
-import com.example.storyapp.Views.LandingActivity
-import com.example.storyapp.Views.LoginActivity
+import com.example.storyapp.Views.*
 import com.example.storyapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -49,6 +46,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.fabAdd.setOnClickListener {
             val myIntent = Intent(this, CreateStoryActivity::class.java)
+//            this.startActivity(myIntent)
+            this.startActivity(myIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity as Activity).toBundle())
+        }
+
+        binding.mapbutton.setOnClickListener {
+            val myIntent = Intent(this, MapsActivity::class.java)
 //            this.startActivity(myIntent)
             this.startActivity(myIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity as Activity).toBundle())
         }
