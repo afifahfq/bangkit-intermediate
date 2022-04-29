@@ -40,6 +40,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
         setTitle("Login")
 
+        checkLoggedIn()
+
         submitButton = findViewById(R.id.my_button)
         emailEditText = findViewById(R.id.et_email)
         passEditText = findViewById(R.id.et_pass)
@@ -79,6 +81,16 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         gotoRegister.setOnClickListener(this)
     }
 
+    private fun checkLoggedIn() {
+        val userPreference = UserPreference(this)
+
+        if (userPreference.getUser().userId != "") {
+            val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(moveIntent)
+            finish()
+        }
+    }
+
     private fun subscribe() {
         val userObserver = Observer<User> { aUser ->
 //            Toast.makeText(this@LoginActivity, aUser.userId, Toast.LENGTH_SHORT).show()
@@ -100,6 +112,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun saveUser(user: User) {
         val userPreference = UserPreference(this)
         userPreference.setUser(user)
+        Log.i("CEKPREFERENCE", userPreference.getUser().toString())
 //        Toast.makeText(this, userPreference.getUser().name, Toast.LENGTH_SHORT).show()
     }
 

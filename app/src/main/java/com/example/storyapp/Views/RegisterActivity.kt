@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -37,6 +38,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setTitle("Register")
+
+        checkLoggedIn()
 
         submitButton = findViewById(R.id.my_button)
         nameEditText = findViewById(R.id.et_name)
@@ -85,6 +88,16 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
         val gotoLogin: TextView = findViewById(R.id.goto_login)
         gotoLogin.setOnClickListener(this)
+    }
+
+    private fun checkLoggedIn() {
+        val userPreference = UserPreference(this)
+
+        if (userPreference.getUser().userId != "") {
+            val moveIntent = Intent(this@RegisterActivity, MainActivity::class.java)
+            startActivity(moveIntent)
+            finish()
+        }
     }
 
     private fun subscribe() {
