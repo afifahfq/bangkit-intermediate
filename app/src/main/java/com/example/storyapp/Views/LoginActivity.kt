@@ -1,5 +1,6 @@
 package com.example.storyapp.Views
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,7 +10,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.storyapp.MainActivity
@@ -22,7 +26,7 @@ import com.example.storyapp.UI.PasswordEditText
 import com.example.storyapp.ViewModels.UserViewModel
 import com.example.storyapp.databinding.ActivityLoginBinding
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var mLiveDataUser: UserViewModel
     private lateinit var submitButton: SubmitButton
@@ -70,6 +74,9 @@ class LoginActivity : AppCompatActivity() {
             //Toast.makeText(this@LoginActivity, passEditText.text, Toast.LENGTH_SHORT).show()
             mLiveDataUser.login(emailEditText.text.toString(), passEditText.text.toString())
         }
+
+        val gotoRegister: TextView = findViewById(R.id.goto_register)
+        gotoRegister.setOnClickListener(this)
     }
 
     private fun subscribe() {
@@ -118,5 +125,16 @@ class LoginActivity : AppCompatActivity() {
         val resultEmail = emailEditText.text
         val resultPass = passEditText.text
         submitButton.isEnabled = resultEmail != null && resultEmail.toString().isNotEmpty() && resultPass != null && resultPass.toString().isNotEmpty()
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0?.id) {
+            R.id.goto_register -> {
+                val moveIntent = Intent(this@LoginActivity, RegisterActivity::class.java)
+//                startActivity(moveIntent)
+                startActivity(moveIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@LoginActivity as Activity).toBundle())
+                finish()
+            }
+        }
     }
 }

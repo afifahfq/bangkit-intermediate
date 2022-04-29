@@ -18,4 +18,6 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="upload">Upload</string>
+    <string name="don_t_have_account_click_here_to_go_to_register">Don\'t have account? Click Here To Go To Register</string>
+    <string name="already_have_account_click_here_to_go_to_login">Already have account? Click Here To Go To Login</string>
 </resources>

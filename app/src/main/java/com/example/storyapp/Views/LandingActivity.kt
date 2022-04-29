@@ -58,11 +58,13 @@ class LandingActivity : AppCompatActivity(), View.OnClickListener {
                 val moveIntent = Intent(this@LandingActivity, LoginActivity::class.java)
 //                startActivity(moveIntent)
                 startActivity(moveIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandingActivity as Activity).toBundle())
+                finish()
             }
             R.id.goto_register -> {
                 val moveIntent = Intent(this@LandingActivity, RegisterActivity::class.java)
 //                startActivity(moveIntent)
                 startActivity(moveIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandingActivity as Activity).toBundle())
+                finish()
             }
         }
     }
