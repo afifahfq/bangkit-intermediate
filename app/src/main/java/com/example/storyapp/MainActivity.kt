@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         rvStories.setHasFixedSize(true)
 
         val userPreference = UserPreference(this)
-//        Log.i("CEKPREFERENCE", userPreference.getUser().name!!)
 
         mLiveDataList = ViewModelProvider(this)[StoryViewModel::class.java]
         subscribe()
@@ -125,8 +124,6 @@ class MainActivity : AppCompatActivity() {
 
             val userPreference = UserPreference(this)
             userPreference.clear()
-
-            Log.i("CEKPREFERENCE", userPreference.getUser().name!!)
 
             val i = Intent(this, LandingActivity::class.java)
             startActivity(i)

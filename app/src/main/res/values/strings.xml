@@ -23,4 +23,6 @@
     <string name="satellite_type">Satellite</string>
     <string name="terrain_type">Terrain</string>
     <string name="hybrid_type">Hybrid</string>
+    <string name="don_t_have_account_click_here_to_go_to_register">Don\'t have account? Click Here To Go To Register</string>
+    <string name="already_have_account_click_here_to_go_to_login">Already have account? Click Here To Go To Login</string>
 </resources>

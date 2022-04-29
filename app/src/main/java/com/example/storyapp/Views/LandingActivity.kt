@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.core.app.ActivityOptionsCompat
@@ -11,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.storyapp.MainActivity
 import com.example.storyapp.Models.User
+import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.R
 import com.example.storyapp.ViewModels.UserViewModel
 import com.example.storyapp.databinding.ActivityLandingBinding
@@ -24,6 +26,8 @@ class LandingActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_landing)
         binding = ActivityLandingBinding.inflate(layoutInflater)
 
+        checkLoggedIn()
+
         mLiveDataUser = ViewModelProvider(this)[UserViewModel::class.java]
         subscribe()
 
@@ -34,6 +38,19 @@ class LandingActivity : AppCompatActivity(), View.OnClickListener {
         gotoRegister.setOnClickListener(this)
 
         mLiveDataUser.loginStatus.postValue(false)
+
+        val userPreference = UserPreference(this)
+        Log.i("CEKPREFERENCE", userPreference.getUser().toString())
+    }
+
+    private fun checkLoggedIn() {
+        val userPreference = UserPreference(this)
+
+        if (userPreference.getUser().userId != "") {
+            val moveIntent = Intent(this@LandingActivity, MainActivity::class.java)
+            startActivity(moveIntent)
+            finish()
+        }
     }
 
     private fun subscribe() {
@@ -58,11 +75,13 @@ class LandingActivity : AppCompatActivity(), View.OnClickListener {
                 val moveIntent = Intent(this@LandingActivity, LoginActivity::class.java)
 //                startActivity(moveIntent)
                 startActivity(moveIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandingActivity as Activity).toBundle())
+                finish()
             }
             R.id.goto_register -> {
                 val moveIntent = Intent(this@LandingActivity, RegisterActivity::class.java)
 //                startActivity(moveIntent)
                 startActivity(moveIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@LandingActivity as Activity).toBundle())
+                finish()
             }
         }
     }
