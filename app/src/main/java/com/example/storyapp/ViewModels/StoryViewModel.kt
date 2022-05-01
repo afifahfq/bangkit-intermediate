@@ -113,6 +113,10 @@ class StoryViewModel : ViewModel(){
         return mList
     }
 
+    fun getDataList(): ArrayList<Story> {
+        return list
+    }
+
     fun getStatus(): MutableLiveData<Boolean> {
         return mUpload
     }

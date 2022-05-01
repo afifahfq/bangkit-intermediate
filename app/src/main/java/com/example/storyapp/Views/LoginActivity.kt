@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.storyapp.Api.ApiService
 import com.example.storyapp.MainActivity
 import com.example.storyapp.Models.User
 import com.example.storyapp.Preferences.UserPreference
@@ -125,8 +126,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun checkLoginStatus(aStatus: Boolean) {
+        val userPreference = UserPreference(this)
+
         if (aStatus) {
             val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
+            ApiService.TOKEN = userPreference.getToken().toString()
+            Log.i("CEKTOKEN", ApiService.TOKEN)
             startActivity(moveIntent)
             finish()
         } else {
