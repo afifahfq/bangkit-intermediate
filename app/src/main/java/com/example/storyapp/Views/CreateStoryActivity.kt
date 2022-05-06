@@ -31,8 +31,13 @@ import com.example.storyapp.Helper.uriToFile
 import com.example.storyapp.MainActivity
 import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.R
+import com.example.storyapp.UI.NormalEditText
+import com.example.storyapp.UI.PasswordEditText
+import com.example.storyapp.UI.SubmitButton
 import com.example.storyapp.ViewModels.StoryViewModel
 import com.example.storyapp.databinding.ActivityCreateStoryBinding
+import com.example.storyapp.databinding.ActivityLoginBinding
+import com.google.android.material.button.MaterialButton
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -45,6 +50,8 @@ class CreateStoryActivity : AppCompatActivity() {
     private lateinit var currentPhotoPath: String
     private lateinit var mLiveDataStory: StoryViewModel
     private var imageFile: File? = null
+    private lateinit var submitButton: MaterialButton
+    private lateinit var editDescriptionText: NormalEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +66,10 @@ class CreateStoryActivity : AppCompatActivity() {
                 REQUEST_CODE_PERMISSIONS
             )
         }
+
+        submitButton = findViewById(R.id.uploadButton)
+        editDescriptionText = findViewById(R.id.editDescriptionText)
+        setMyButtonEnable()
 
         binding.cameraButton.setOnClickListener { startTakePhoto() }
         binding.galleryButton.setOnClickListener { startGallery() }
@@ -112,8 +123,8 @@ class CreateStoryActivity : AppCompatActivity() {
     }
 
     private fun setMyButtonEnable() {
-        val resultDesc = binding.editDescriptionText.text
-        binding.uploadButton.isEnabled = resultDesc != null && resultDesc.toString().isNotEmpty()
+        val resultDesc = editDescriptionText.text
+        submitButton.isEnabled = resultDesc != null && resultDesc.toString().isNotEmpty()
     }
 
     override fun onRequestPermissionsResult(

@@ -38,8 +38,7 @@ class ListStoryAdapter(private val listStories: ArrayList<Story>): RecyclerView.
             .into(holder.imgPhoto);
 
         holder.tvUsername.text = name
-//        holder.tvName.text = description
-        holder.tvName.text = "description         desc         desc         desc"
+        holder.tvName.text = "description"
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listStories[holder.adapterPosition])
         }
