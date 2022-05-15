@@ -10,6 +10,7 @@ import android.widget.Button
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.storyapp.Api.ApiService
 import com.example.storyapp.MainActivity
 import com.example.storyapp.Models.User
 import com.example.storyapp.Preferences.UserPreference
@@ -40,13 +41,14 @@ class LandingActivity : AppCompatActivity(), View.OnClickListener {
         mLiveDataUser.loginStatus.postValue(false)
 
         val userPreference = UserPreference(this)
-        Log.i("CEKPREFERENCE", userPreference.getUser().toString())
     }
 
     private fun checkLoggedIn() {
         val userPreference = UserPreference(this)
 
         if (userPreference.getUser().userId != "") {
+            ApiService.TOKEN = userPreference.getToken().toString()
+
             val moveIntent = Intent(this@LandingActivity, MainActivity::class.java)
             startActivity(moveIntent)
             finish()

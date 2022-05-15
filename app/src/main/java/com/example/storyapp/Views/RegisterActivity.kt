@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.storyapp.Api.ApiService
 import com.example.storyapp.MainActivity
 import com.example.storyapp.Models.User
 import com.example.storyapp.Preferences.UserPreference
@@ -94,6 +95,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         val userPreference = UserPreference(this)
 
         if (userPreference.getUser().userId != "") {
+            ApiService.TOKEN = userPreference.getToken().toString()
+
             val moveIntent = Intent(this@RegisterActivity, MainActivity::class.java)
             startActivity(moveIntent)
             finish()

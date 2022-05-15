@@ -86,6 +86,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         val userPreference = UserPreference(this)
 
         if (userPreference.getUser().userId != "") {
+            ApiService.TOKEN = userPreference.getToken().toString()
+
             val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(moveIntent)
             finish()
@@ -113,7 +115,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun saveUser(user: User) {
         val userPreference = UserPreference(this)
         userPreference.setUser(user)
-        Log.i("CEKPREFERENCE", userPreference.getUser().toString())
 //        Toast.makeText(this, userPreference.getUser().name, Toast.LENGTH_SHORT).show()
     }
 
@@ -131,7 +132,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         if (aStatus) {
             val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
             ApiService.TOKEN = userPreference.getToken().toString()
-            Log.i("CEKTOKEN", ApiService.TOKEN)
+
             startActivity(moveIntent)
             finish()
         } else {

@@ -31,7 +31,7 @@ interface ApiService {
     @Multipart
     @POST("stories")
     fun addNewStory(
-        @Header("Authorization") auth: String?,
+        @Header("Authorization") auth: String? = Companion.TOKEN,
         @Part("description") name: RequestBody,
         @Part photo: MultipartBody.Part
     ): Call<BaseResponse>
@@ -46,7 +46,7 @@ interface ApiService {
 //    @Headers("Authorization: ", token)
     @GET("stories")
     fun getAllStories(
-        @Header("Authorization") name: String? = Companion.TOKEN,
+        @Header("Authorization") auth: String? = Companion.TOKEN,
         @Query("page") page: Int? = null,
         @Query("size") size: Int? = null,
         @Query("location") location: Int = 0

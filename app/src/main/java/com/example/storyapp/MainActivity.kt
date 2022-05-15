@@ -9,18 +9,24 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.storyapp.Adapter.ListStoryAdapter
+import com.example.storyapp.Adapter.LoadingStateAdapter
+import com.example.storyapp.Adapter.StoryListAdapter
+import com.example.storyapp.Api.ApiService
 import com.example.storyapp.Models.Story
 import com.example.storyapp.Models.User
 import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.ViewModels.StoryViewModel
+import com.example.storyapp.ViewModels.ViewModelFactory
 import com.example.storyapp.Views.*
 import com.example.storyapp.databinding.ActivityMainBinding
 
@@ -28,6 +34,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mLiveDataList: StoryViewModel
     private lateinit var rvStories: RecyclerView
+    private val storyViewModel: StoryViewModel by viewModels {
+        ViewModelFactory(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,30 +46,42 @@ class MainActivity : AppCompatActivity() {
         rvStories = findViewById(R.id.rv_stories)
         rvStories.setHasFixedSize(true)
 
-        val userPreference = UserPreference(this)
-
-        mLiveDataList = ViewModelProvider(this)[StoryViewModel::class.java]
-        subscribe()
-        mLiveDataList.getAllStories(userPreference.getToken(), null, 100, 0)
-
         binding.fabAdd.setOnClickListener {
             val myIntent = Intent(this, CreateStoryActivity::class.java)
-//            this.startActivity(myIntent)
             this.startActivity(myIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity as Activity).toBundle())
         }
 
         binding.mapbutton.setOnClickListener {
             val myIntent = Intent(this, MapsActivity::class.java)
-//            this.startActivity(myIntent)
             this.startActivity(myIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity as Activity).toBundle())
         }
+
+        if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            rvStories.layoutManager = GridLayoutManager(this, 2)
+        } else {
+            rvStories.layoutManager = LinearLayoutManager(this)
+        }
+
+        getData()
+    }
+
+    private fun getData() {
+        val adapter = StoryListAdapter()
+        rvStories.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
+        storyViewModel.story.observe(this, {
+            adapter.submitData(lifecycle, it)
+        })
     }
 
     private fun subscribe() {
-        val listObserver = Observer<ArrayList<Story>?> { aList ->
-            showRecyclerList(aList)
-        }
-        mLiveDataList.getList().observe(this, listObserver)
+//        val listObserver = Observer<ArrayList<Story>?> { aList ->
+//            showRecyclerList(aList)
+//        }
+//        mLiveDataList.getList().observe(this, listObserver)
 
         val loadingObserver = Observer<Boolean> { aStatus ->
             showLoading(aStatus)
@@ -84,7 +105,6 @@ class MainActivity : AppCompatActivity() {
                 val detailStoryIntent = Intent(this@MainActivity, DetailStoryActivity::class.java)
                 detailStoryIntent.putExtra(DetailStoryActivity.EXTRA_STORY, data)
                 startActivity(detailStoryIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity as Activity).toBundle())
-//                startActivity(detailStoryIntent, optionsCompat.toBundle())
             }
         })
     }
@@ -120,10 +140,11 @@ class MainActivity : AppCompatActivity() {
 
         builder.setPositiveButton(
             "Yes") { dialog, id ->
-//            Toast.makeText(this, "Updating your device",Toast.LENGTH_SHORT).show()
 
             val userPreference = UserPreference(this)
             userPreference.clear()
+
+            ApiService.TOKEN = ""
 
             val i = Intent(this, LandingActivity::class.java)
             startActivity(i)
