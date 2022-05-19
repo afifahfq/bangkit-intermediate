@@ -56,18 +56,20 @@ class MainActivity : AppCompatActivity() {
             this.startActivity(myIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity as Activity).toBundle())
         }
 
-        if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            rvStories.layoutManager = GridLayoutManager(this, 2)
-        } else {
-            rvStories.layoutManager = LinearLayoutManager(this)
-        }
+//        if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            rvStories.layoutManager = GridLayoutManager(this, 2)
+//        } else {
+//            rvStories.layoutManager = LinearLayoutManager(this)
+//        }
+
+        binding.rvStories.layoutManager = LinearLayoutManager(this)
 
         getData()
     }
 
     private fun getData() {
         val adapter = StoryListAdapter()
-        rvStories.adapter = adapter.withLoadStateFooter(
+        binding.rvStories.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
             }

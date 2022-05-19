@@ -11,6 +11,7 @@ import com.example.storyapp.Api.ApiConfig
 import com.example.storyapp.Data.StoryRepository
 import com.example.storyapp.Helper.Injection
 import com.example.storyapp.Models.BaseResponse
+import com.example.storyapp.Models.ListStoryItem
 import com.example.storyapp.Models.StoriesResponse
 import com.example.storyapp.Models.Story
 import com.example.storyapp.Preferences.UserPreference
@@ -25,10 +26,10 @@ import java.time.format.DateTimeFormatter
 
 class StoryViewModel(storyRepository: StoryRepository) : ViewModel(){
     val mLoading = MutableLiveData<Boolean>()
-    val mList: LiveData<PagingData<Story>> = storyRepository.getStory().cachedIn(viewModelScope)
+//    val mList: MutableLiveData<PagingData<Story>> = storyRepository.getStory().cachedIn(viewModelScope)
     val list = ArrayList<Story>()
     val mUpload = MutableLiveData<Boolean>()
-    val story: LiveData<PagingData<Story>> = storyRepository.getStory().cachedIn(viewModelScope)
+    val story: LiveData<PagingData<ListStoryItem>> = storyRepository.getStory().cachedIn(viewModelScope)
 
 //    fun getAllStories(auth: String?, page: Int?, size: Int?, location: Int) {
 //        mLoading.postValue(true)
@@ -113,9 +114,9 @@ class StoryViewModel(storyRepository: StoryRepository) : ViewModel(){
         })
     }
 
-    fun getList(): LiveData<PagingData<Story>> {
-        return mList
-    }
+//    fun getList(): LiveData<PagingData<Story>> {
+//        return mList
+//    }
 
     fun getDataList(): ArrayList<Story> {
         return list
