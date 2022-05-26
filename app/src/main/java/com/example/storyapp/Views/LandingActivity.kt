@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.core.app.ActivityOptionsCompat
@@ -12,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.storyapp.Api.ApiService
 import com.example.storyapp.MainActivity
-import com.example.storyapp.Models.User
 import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.R
 import com.example.storyapp.ViewModels.UserViewModel
@@ -39,8 +37,6 @@ class LandingActivity : AppCompatActivity(), View.OnClickListener {
         gotoRegister.setOnClickListener(this)
 
         mLiveDataUser.loginStatus.postValue(false)
-
-        val userPreference = UserPreference(this)
     }
 
     private fun checkLoggedIn() {

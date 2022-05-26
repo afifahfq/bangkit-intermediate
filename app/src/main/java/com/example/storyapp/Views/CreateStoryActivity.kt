@@ -2,21 +2,15 @@ package com.example.storyapp.Views
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -26,19 +20,15 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.storyapp.Helper.createCustomTempFile
 import com.example.storyapp.Helper.uriToFile
 import com.example.storyapp.MainActivity
 import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.R
 import com.example.storyapp.UI.NormalEditText
-import com.example.storyapp.UI.PasswordEditText
-import com.example.storyapp.UI.SubmitButton
 import com.example.storyapp.ViewModels.StoryViewModel
 import com.example.storyapp.ViewModels.ViewModelFactory
 import com.example.storyapp.databinding.ActivityCreateStoryBinding
-import com.example.storyapp.databinding.ActivityLoginBinding
 import com.google.android.material.button.MaterialButton
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -56,9 +46,6 @@ class CreateStoryActivity : AppCompatActivity() {
     private var imageFile: File? = null
     private lateinit var submitButton: MaterialButton
     private lateinit var editDescriptionText: NormalEditText
-    private val storyViewModel: StoryViewModel by viewModels {
-        ViewModelFactory(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

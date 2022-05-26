@@ -1,16 +1,12 @@
 package com.example.storyapp.Views
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
@@ -99,7 +95,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 //            Toast.makeText(this@LoginActivity, aUser.userId, Toast.LENGTH_SHORT).show()
             saveUser(aUser)
         }
-        mLiveDataUser.getUser()?.observe(this, userObserver)
+        mLiveDataUser.getUser().observe(this, userObserver)
 
         val loadingObserver = Observer<Boolean> { aLoading ->
             showLoading(aLoading)

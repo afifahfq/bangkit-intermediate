@@ -8,7 +8,6 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.storyapp.Models.Story
 import com.example.storyapp.R
-import com.example.storyapp.ViewModels.StoryViewModel
 import com.example.storyapp.databinding.ActivityDetailStoryBinding
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -16,7 +15,6 @@ import java.util.*
 
 class DetailStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailStoryBinding
-    private lateinit var mLiveDetailStory: StoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,36 +2,26 @@ package com.example.storyapp
 
 import android.app.Activity
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityOptionsCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagingData
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.storyapp.Adapter.ListStoryAdapter
 import com.example.storyapp.Adapter.LoadingStateAdapter
 import com.example.storyapp.Adapter.StoryListAdapter
 import com.example.storyapp.Api.ApiService
 import com.example.storyapp.Models.Story
-import com.example.storyapp.Models.User
 import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.ViewModels.StoryViewModel
 import com.example.storyapp.ViewModels.ViewModelFactory
 import com.example.storyapp.Views.*
 import com.example.storyapp.databinding.ActivityMainBinding
-import com.example.storyapp.databinding.ItemRowStoryBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mLiveDataList: StoryViewModel
     private lateinit var rvStories: RecyclerView
     private val storyViewModel: StoryViewModel by viewModels {
         ViewModelFactory(this)

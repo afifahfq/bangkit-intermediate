@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -22,7 +21,6 @@ import com.example.storyapp.UI.NormalEditText
 import com.example.storyapp.UI.PasswordEditText
 import com.example.storyapp.UI.SubmitButton
 import com.example.storyapp.ViewModels.UserViewModel
-import com.example.storyapp.databinding.ActivityLoginBinding
 import com.example.storyapp.databinding.ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
@@ -107,7 +105,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         val userObserver = Observer<User> { aUser ->
             saveUser(aUser)
         }
-        mLiveDataUser.getUser()?.observe(this, userObserver)
+        mLiveDataUser.getUser().observe(this, userObserver)
 
         val loadingObserver = Observer<Boolean> { aLoading ->
             showLoading(aLoading)

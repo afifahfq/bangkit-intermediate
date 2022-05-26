@@ -2,25 +2,17 @@ package com.example.storyapp.Views
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 import com.example.storyapp.Models.Story
 import com.example.storyapp.Preferences.UserPreference
 import com.example.storyapp.R
@@ -136,7 +128,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 continue
             }
 
-            val loc = LatLng(story.lat!!, story.lon!!)
+            val loc = LatLng(story.lat, story.lon)
             mMap.addMarker(
                 MarkerOptions()
                     .position(loc)

@@ -7,7 +7,6 @@ import android.util.AttributeSet
 import android.view.Gravity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide.init
 import com.example.storyapp.R
 
 class SubmitButton : AppCompatButton {

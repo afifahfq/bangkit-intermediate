@@ -1,6 +1,5 @@
 package com.example.storyapp.Adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter

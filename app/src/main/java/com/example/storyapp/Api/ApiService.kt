@@ -3,8 +3,6 @@ package com.example.storyapp.Api
 import com.example.storyapp.Models.BaseResponse
 import com.example.storyapp.Models.LoginResponse
 import com.example.storyapp.Models.StoriesResponse
-import com.example.storyapp.Preferences.UserPreference
-import com.google.android.gms.common.api.Api
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -43,7 +41,6 @@ interface ApiService {
         @Part photo: MultipartBody.Part
     ): Call<BaseResponse>
 
-//    @Headers("Authorization: ", token)
     @GET("stories")
     fun getAllStories(
         @Header("Authorization") auth: String? = Companion.TOKEN,

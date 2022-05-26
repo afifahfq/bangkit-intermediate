@@ -40,16 +40,16 @@ class StoryViewModel(storyRepository: StoryRepository) : ViewModel(){
                 val error = responseBody?.error
                 if (error == false) {
                     for ( story in responseBody.listStory!!) {
-                        var story = Story(
-                            story!!.id!!,
-                            story?.name,
-                            story?.description,
-                            story?.photoUrl,
-                            story?.createdAt,
-                            story?.lat,
-                            story?.lon
+                        val currstory = Story(
+                            story.id!!,
+                            story.name,
+                            story.description,
+                            story.photoUrl,
+                            story.createdAt,
+                            story.lat,
+                            story.lon
                         )
-                        list.add(story)
+                        list.add(currstory)
                     }
                     mLoading.postValue(false)
                     mList.postValue(list)

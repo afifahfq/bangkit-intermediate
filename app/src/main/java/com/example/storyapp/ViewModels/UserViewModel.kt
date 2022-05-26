@@ -1,7 +1,6 @@
 package com.example.storyapp.ViewModels
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,7 +29,7 @@ class UserViewModel : ViewModel(){
                 val error = responseBody?.error
                 if (error == false) {
                     val result = responseBody.loginResult
-                    var user = User(
+                    val user = User(
                         result?.userId,
                         result?.name,
                         result?.token
@@ -73,7 +72,7 @@ class UserViewModel : ViewModel(){
         })
     }
 
-    fun getUser(): LiveData<User>? {
+    fun getUser(): LiveData<User> {
         return mUser
     }
 
