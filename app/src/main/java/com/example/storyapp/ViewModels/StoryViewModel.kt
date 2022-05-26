@@ -14,59 +14,52 @@ import com.example.storyapp.Models.BaseResponse
 import com.example.storyapp.Models.ListStoryItem
 import com.example.storyapp.Models.StoriesResponse
 import com.example.storyapp.Models.Story
-import com.example.storyapp.Preferences.UserPreference
 import okhttp3.MultipartBody
-import okhttp3.Request
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class StoryViewModel(storyRepository: StoryRepository) : ViewModel(){
     val mLoading = MutableLiveData<Boolean>()
-//    val mList: MutableLiveData<PagingData<Story>> = storyRepository.getStory().cachedIn(viewModelScope)
+    val mList = MutableLiveData<ArrayList<Story>>()
     val list = ArrayList<Story>()
     val mUpload = MutableLiveData<Boolean>()
     val story: LiveData<PagingData<ListStoryItem>> = storyRepository.getStory().cachedIn(viewModelScope)
 
-//    fun getAllStories(auth: String?, page: Int?, size: Int?, location: Int) {
-//        mLoading.postValue(true)
-//        val client = ApiConfig.getApiService().getAllStories(auth, page, size, location)
-//        client.enqueue(object : Callback<StoriesResponse> {
-//            @RequiresApi(Build.VERSION_CODES.O)
-//            override fun onResponse(
-//                call: Call<StoriesResponse>,
-//                response: Response<StoriesResponse>
-//            ) {
-//                val responseBody = response.body()
-//                val error = responseBody?.error
-//                if (error == false) {
-//                    for ( story in responseBody.listStory!!) {
-//                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
-////                        val currdatetime = LocalDateTime.parse(story?.createdAt, formatter)
-//
-//                        var story = Story(
-//                            story!!.id!!,
-//                            story?.name,
-//                            story?.description,
-//                            story?.photoUrl,
-//                            story?.createdAt,
-//                            story?.lat,
-//                            story?.lon
-//                        )
-//                        list.add(story)
-//                    }
-//                    mLoading.postValue(false)
-//                    mList.postValue(list)
-//                }
-//            }
-//            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
-//                Log.e("StoryViewModel", "onFailure: ${t.message}")
-//            }
-//        })
-//    }
+    fun getAllStories(auth: String?, page: Int?, size: Int?, location: Int) {
+        mLoading.postValue(true)
+        val client = ApiConfig.getApiService().getAllStories(auth, page, size, location)
+        client.enqueue(object : Callback<StoriesResponse> {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onResponse(
+                call: Call<StoriesResponse>,
+                response: Response<StoriesResponse>
+            ) {
+                val responseBody = response.body()
+                val error = responseBody?.error
+                if (error == false) {
+                    for ( story in responseBody.listStory!!) {
+                        var story = Story(
+                            story!!.id!!,
+                            story?.name,
+                            story?.description,
+                            story?.photoUrl,
+                            story?.createdAt,
+                            story?.lat,
+                            story?.lon
+                        )
+                        list.add(story)
+                    }
+                    mLoading.postValue(false)
+                    mList.postValue(list)
+                }
+            }
+            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
+                Log.e("StoryViewModel", "onFailure: ${t.message}")
+            }
+        })
+    }
 
     fun addNewStory(auth: String?, description: RequestBody, photo: MultipartBody.Part) {
         mLoading.postValue(true)
@@ -114,12 +107,8 @@ class StoryViewModel(storyRepository: StoryRepository) : ViewModel(){
         })
     }
 
-//    fun getList(): LiveData<PagingData<Story>> {
-//        return mList
-//    }
-
-    fun getDataList(): ArrayList<Story> {
-        return list
+    fun getList(): LiveData<ArrayList<Story>?> {
+        return mList
     }
 
     fun getStatus(): MutableLiveData<Boolean> {

@@ -6,9 +6,7 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityOptionsCompat
@@ -29,6 +27,7 @@ import com.example.storyapp.ViewModels.StoryViewModel
 import com.example.storyapp.ViewModels.ViewModelFactory
 import com.example.storyapp.Views.*
 import com.example.storyapp.databinding.ActivityMainBinding
+import com.example.storyapp.databinding.ItemRowStoryBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -64,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.rvStories.layoutManager = LinearLayoutManager(this)
 
+
         getData()
     }
 
@@ -77,46 +77,14 @@ class MainActivity : AppCompatActivity() {
         storyViewModel.story.observe(this, {
             adapter.submitData(lifecycle, it)
         })
-    }
 
-    private fun subscribe() {
-//        val listObserver = Observer<ArrayList<Story>?> { aList ->
-//            showRecyclerList(aList)
-//        }
-//        mLiveDataList.getList().observe(this, listObserver)
-
-        val loadingObserver = Observer<Boolean> { aStatus ->
-            showLoading(aStatus)
-        }
-        mLiveDataList.getLoading().observe(this, loadingObserver)
-    }
-
-    private fun showRecyclerList(aList: ArrayList<Story>) {
-        if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            rvStories.layoutManager = GridLayoutManager(this, 2)
-        } else {
-            rvStories.layoutManager = LinearLayoutManager(this)
-        }
-
-        val listUserAdapter = ListStoryAdapter(aList)
-        rvStories.adapter = listUserAdapter
-
-        listUserAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
+        adapter.setOnItemClickCallback(object : StoryListAdapter.MyViewHolder.OnItemClickCallback {
             override fun onItemClicked(data: Story) {
-
                 val detailStoryIntent = Intent(this@MainActivity, DetailStoryActivity::class.java)
                 detailStoryIntent.putExtra(DetailStoryActivity.EXTRA_STORY, data)
                 startActivity(detailStoryIntent, ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity as Activity).toBundle())
             }
         })
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

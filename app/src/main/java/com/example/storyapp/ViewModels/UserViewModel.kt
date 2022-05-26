@@ -17,7 +17,6 @@ class UserViewModel : ViewModel(){
     val userViewModelStatus = MutableLiveData<Boolean>()
     val loginStatus = MutableLiveData<Boolean>()
     var mUser = MutableLiveData<User>()
-//    var mMessage = MutableLiveData<String>()
 
     fun login(email: String, password: String) {
         userViewModelStatus.postValue(true)
@@ -41,7 +40,6 @@ class UserViewModel : ViewModel(){
                 }
                 else {
                     loginStatus.postValue(false)
-//                    mMessage.postValue(message!!)
                 }
                 userViewModelStatus.postValue(false)
             }
@@ -63,11 +61,9 @@ class UserViewModel : ViewModel(){
                 val result = responseBody?.error
                 if (result == false) {
                     loginStatus.postValue(true)
-//                        login(email, password)
                 }
                 else {
                     loginStatus.postValue(false)
-//                    mMessage.postValue(message!!)
                     userViewModelStatus.postValue(false)
                 }
             }

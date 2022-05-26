@@ -19,6 +19,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
@@ -35,6 +36,7 @@ import com.example.storyapp.UI.NormalEditText
 import com.example.storyapp.UI.PasswordEditText
 import com.example.storyapp.UI.SubmitButton
 import com.example.storyapp.ViewModels.StoryViewModel
+import com.example.storyapp.ViewModels.ViewModelFactory
 import com.example.storyapp.databinding.ActivityCreateStoryBinding
 import com.example.storyapp.databinding.ActivityLoginBinding
 import com.google.android.material.button.MaterialButton
@@ -48,10 +50,15 @@ import java.io.File
 class CreateStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateStoryBinding
     private lateinit var currentPhotoPath: String
-    private lateinit var mLiveDataStory: StoryViewModel
+    private val mLiveDataStory: StoryViewModel by viewModels {
+        ViewModelFactory(this)
+    }
     private var imageFile: File? = null
     private lateinit var submitButton: MaterialButton
     private lateinit var editDescriptionText: NormalEditText
+    private val storyViewModel: StoryViewModel by viewModels {
+        ViewModelFactory(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +94,6 @@ class CreateStoryActivity : AppCompatActivity() {
             }
         })
 
-        mLiveDataStory = ViewModelProvider(this)[StoryViewModel::class.java]
         subscribe()
     }
 

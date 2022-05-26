@@ -49,16 +49,8 @@ interface ApiService {
         @Header("Authorization") auth: String? = Companion.TOKEN,
         @Query("page") page: Int? = null,
         @Query("size") size: Int? = null,
-        @Query("location") location: Int = 0
+        @Query("location") location: Int
     ): Call<StoriesResponse>
-
-//    @GET("stories")
-//    fun getAllStories(
-//        @Header("Authorization") auth: String?,
-//        @Query("page") page: Int? = null,
-//        @Query("size") size: Int? = null,
-//        @Query("location") location: Int = 0
-//    ): Call<StoriesResponse>
 
     companion object {
         var TOKEN = "TOKEN"

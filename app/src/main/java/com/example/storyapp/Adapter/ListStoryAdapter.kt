@@ -35,7 +35,7 @@ class ListStoryAdapter(private val listStories: ArrayList<Story>): RecyclerView.
         val (id, name, description, photoUrl, createdAt, lat, lon) = listStories[position]
         Glide.with(holder.itemView.context)
             .load(photoUrl)
-            .into(holder.imgPhoto);
+            .into(holder.imgPhoto)
 
         holder.tvUsername.text = name
         holder.tvName.text = "description"
